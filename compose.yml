@@ -10,6 +10,7 @@ services:
       RCON_PASSWORD: ${RCON_PASSWORD:-password}
       SEED: ${SEED}
       OPS: ${OPS}
+      MOTD: ${MOTD:-"Minecraft Server"}
       INIT_MEMORY: ${INIT_MEMORY:-1G}
       MAX_MEMORY: ${MAX_MEMORY:-10G}
     volumes:
