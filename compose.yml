@@ -1,0 +1,36 @@
+services:
+  mc:
+    image: itzg/minecraft-server
+    environment:
+      EULA: "TRUE"
+      VERSION: ${VERSION:-1.21.8}
+      TYPE: "VANILLA"
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: ${RCON_PASSWORD:-password}
+      SEED: ${SEED}
+      OPS: ${OPS}
+      INIT_MEMORY: ${INIT_MEMORY:-1G}
+      MAX_MEMORY: ${MAX_MEMORY:-10G}
+    volumes:
+      - ./data:/data
+    ports:
+      - 25565:25565
+    restart: unless-stopped
+
+  backup:
+    image: itzg/mc-backup
+    environment:
+      RCON_HOST: mc
+      RCON_PASSWORD: ${RCON_PASSWORD:-password}
+      BACKUP_INTERVAL: "6h"
+      BACKUP_DIRECTORY: /backups
+      INITIAL_DELAY: "2m"
+      PRUNE_BACKUPS_DAYS: "14"
+      MESSAGE_BACKUP_START: "Backup starting"
+      MESSAGE_BACKUP_END: "Backup completed"
+      TAR_COMPRESS_METHOD: gzip
+      TZ: Asia/Tokyo
+    volumes:
+      - ./backups:/backups
+      - ./data:/data
+    restart: unless-stopped
