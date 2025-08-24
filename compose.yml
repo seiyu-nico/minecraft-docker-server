@@ -4,6 +4,7 @@ services:
     environment:
       EULA: "TRUE"
       VERSION: ${VERSION:-1.21.8}
+      DIFFICULTY: ${DIFFICULTY:-normal}
       TYPE: ${TYPE:-VANILLA}
       ENABLE_RCON: "true"
       RCON_PASSWORD: ${RCON_PASSWORD:-password}
